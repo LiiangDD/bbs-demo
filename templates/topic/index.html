@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% extends "base.html" %}
+    {% block title %}话题列表{% endblock %}
+</head>
+<body>
+    {% block main %}
+    <div id="main">
+        {% block sidebar %} {{ super() }} {% endblock %}
+        <div id="content">
+            <div class="panel">
+                <div class="header">
+                    <a href="{{ url_for("coolwater_topic.index") }}"
+                       class="topic-tab current-tab">
+                        全部的帖子
+                    </a>
+
+                    {% for b in bs %}
+                    <a href="/topic?board_id={{ b.id }}"
+                       class="topic-tab current-tab">
+                        {{ b.title }}
+                    </a>
+                    {% endfor %}
+                </div>
+                <div class="inner post">
+                    <div class="topic_list">
+                        {% for t in ms %}
+                        <div class="cell">
+                            <div class="topic_title_wrapper">
+                                <a class="user_avatar pull-left" href="{{ url_for('coolwater_user.index', username=t.user().username, user_id=t.user().id) }}">
+                                    <img src="{{ t.user().image }}" title="{{ t.user().username }}">
+                                </a>
+                                <a class="topic_title" href="{{ url_for('coolwater_topic.detail', id=t.id) }}">
+                                    {{ t.title }}
+                                </a>
+                                <span>{{ t.replies() | count }} / {{ t.views }}</span>
+                                {# count(t.replies()) #}
+                                {# <span>{{ t.reply_count() }} / {{ t.views }}</span> #}
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endblock %}
+</body>
+
+</html>

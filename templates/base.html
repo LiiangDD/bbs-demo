@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% block head %}
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/static/css/bootstrap.min.css">
+    <link href="https://cdn.bootcss.com/pure/1.0.0/pure-min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/index.min.css">
+    <title>{% block title %}{% endblock %} - bbs club</title>
+    {% endblock %}
+</head>
+<body>
+
+    {% block navbar %}
+    <div class="navbar">
+        <div class="navbar-inner">
+            <div class="container">
+                <a class="brand" href="{{ url_for("coolwater_topic.index") }}">
+
+          <img src="//o4j806krb.qnssl.com/public/images/cnodejs_light.svg">
+
+      </a>
+
+                <!-- <form id="search_form" class="navbar-search" action="/search">
+                    <input id="q" name="q" class="search-query span3" value="" type="text">
+                </form> -->
+                <ul class="nav pull-right">
+                    <li><a href="/">首页</a></li>
+                    {% if base_inject_user.is_guest() %}
+                    <li><a href="{{ url_for("index.login_view") }}">注册/登录</a></li>
+                    {% endif %}
+                    {% if not base_inject_user.is_guest() %}
+                    <li><a href="{{ url_for("mail.index") }}">Mail</a></li>
+                    <li><a href="{{ url_for("index.profile") }}">设置</a></li>
+                    <li><a href="{{ url_for("index.logout") }}">登出</a></li>
+                    {% endif %}
+                </ul>
+                <a class="btn btn-navbar" id="responsive-sidebar-trigger">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </a>
+            </div>
+        </div>
+    </div>
+    {% endblock %}
+
+    {% block main %}
+
+    {% block sidebar %}
+    <div id="sidebar">
+
+        <div class="panel">
+            <div class="header">
+                <span class="col_fade">个人信息</span>
+            </div>
+            <div class="inner">
+                <div class="user_card">
+                    <div>
+                        <a class="user_avatar" href="{{ url_for("coolwater_user.index", username=u.username, user_id=u.id) }}">
+                            <img src="{{ u.image }}" title="{{ u.username }}">
+                        </a>
+                        <span class="user_name">
+                            <a class="dark" href="{{ url_for("coolwater_user.index", username=u.username, user_id=u.id) }}">
+                                {{ u.username }}
+                            </a>
+                        </span>
+
+                        <div class="board clearfix">
+                            <div class="floor">
+                                <span class="big">积分: 25 </span>
+                            </div>
+                        </div>
+                        <div class="space clearfix"></div>
+                        <span class="signature">
+                            “
+
+                                {{ u.signature }}
+
+                            ”
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="panel">
+            {% if not base_inject_user.is_guest() %}
+            <div class="inner">
+                <a href="{{ url_for('coolwater_topic.new') }}" class="create_topic_btn">
+                    <span class="span-success">发布话题</span>
+                </a>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+    {% endblock %}
+
+    {% endblock %}
+
+    {% block footer %}
+    <div id="footer">
+        <div id="footer_main">
+            <div class="links">
+                <a class="dark" href="/rss">RSS</a> |
+                <a class="dark" href="https://github.com/cnodejs/nodeclub/">源码地址</a>
+            </div>
+
+            <div class="col_fade">
+
+                <p>CNode 社区为国内最专业的 Node.js 开源技术社区，致力于 Node.js 的技术研究。</p>
+                <p>服务器赞助商为
+                    <a href="http://www.ucloud.cn/?utm_source=zanzhu&amp;utm_campaign=cnodejs&amp;utm_medium=display&amp;utm_content=yejiao&amp;ytag=cnodejs_logo" target="_blank" class="sponsor_outlink" data-label="ucloud_bottom">
+                        <img src="//dn-cnode.qbox.me/FuIpEaM9bvsZKnQ3QfPtBHWQmLM9" title="ucloud" alt="ucloud" width="92px">
+                    </a> ，存储赞助商为
+                    <a href="http://www.qiniu.com/?ref=cnode" target="_blank" class="sponsor_outlink" data-label="qiniu_bottom">
+                        <img src="//dn-cnode.qbox.me/Fg0jtDIcTqVC049oVu5-sn6Om4NX" title="七牛云存储" alt="七牛云存储" width="115px">
+                    </a> ，由
+                    <a href="https://www.aliyun.com/product/nodejs?ref=cnode" target="_blank" class="sponsor_outlink" data-label="alinode_bottom">
+                        <img src="//dn-cnode.qbox.me/FpMZk31PDyxkC8yStmMQL4XroaGD" title="alinode" alt="alinode" width="166px" height="54px">
+                    </a>提供应用性能服务。
+                </p>
+                <p>新手搭建 Node.js 服务器，推荐使用无需备案的 <a href="https://www.digitalocean.com/?refcode=eba02656eeb3">DigitalOcean(https://www.digitalocean.com/)</a></p>
+            </div>
+        </div>
+    </div>
+    {% endblock %}
+</body>
+    {% block script %}
+    {% endblock %}
+</html>

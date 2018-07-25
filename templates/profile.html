@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% extends "base.html" %}
+    {% block title %}用户信息{% endblock %}
+</head>
+<body>
+
+    {% block main %}
+    <div id="main">
+        {% block sidebar %} {{ super() }} {% endblock %}
+        <div id="content">
+          <div class="panel">
+            <div class="header">
+              <ul class="breadcrumb">
+                <li><a href="/">主页</a><span class="divider">/</span></li>
+                <li class="active">设置</li>
+              </ul>
+            </div>
+            <div class="inner">
+              <form id="setting_form" class="form-horizontal" action="{{ url_for("coolwater_user.setting") }}" method="post">
+                <div class="control-group">
+                  <label class="control-label" for="name">用户名</label>
+
+                  <div class="controls">
+                    <input class="input-xlarge" id="name" name="name" size="30" value="{{ u.username }}" type="text">
+                  </div>
+                </div>
+                <div class="control-group">
+                  <label class="control-label" for="signature">个性签名</label>
+
+                  <div class="controls">
+                    <textarea class="input-xlarge" id="signature" name="signature" size="30"></textarea>
+                  </div>
+                </div>
+                <input id="action" name="action" value="change_setting" type="hidden">
+                <input name="_csrf" value="aNia1AX8-CcLT1nsxukh183UU5H9y-EsTqtI" type="hidden">
+
+                <div class="form-actions">
+                  <input class="span-primary submit_btn" data-loading-text="保存中.." value="保存设置" type="submit">
+                </div>
+              </form>
+            </div>
+          </div>
+
+          <div class="panel">
+            <div class="header">
+              <span class="col_fade">更改密码</span>
+            </div>
+            <div class="inner">
+              <form id="change_pass_form" class="form-horizontal" action="{{ url_for("coolwater_user.setting") }}" method="post">
+                <div class="control-group">
+                  <label class="control-label" for="old_pass">当前密码</label>
+
+                  <div class="controls">
+                    <input class="input-xlarge" id="old_pass" name="old_pass" size="30" type="password">
+                  </div>
+                </div>
+                <div class="control-group">
+                  <label class="control-label" for="new_pass">新密码</label>
+
+                  <div class="controls">
+                    <input class="input-xlarge" id="new_pass" name="new_pass" size="30" type="password">
+                  </div>
+                </div>
+                <input id="action" name="action" value="change_password" type="hidden">
+                <input name="_csrf" value="aNia1AX8-CcLT1nsxukh183UU5H9y-EsTqtI" type="hidden">
+
+                <div class="form-actions">
+                  <input class="span-primary submit_btn" data-loading-text="更改中.." value="更改密码" type="submit">
+                </div>
+              </form>
+            </div>
+          </div>
+
+          <div class="panel">
+            <div class="header">
+              <span class="col_fade">上传头像</span>
+            </div>
+            <div class="inner">
+              <div>
+                  <form method="post"
+                        action="{{ url_for('.avatar_add')}} "
+                        enctype="multipart/form-data"
+                  >
+                      <input type="file" name="avatar">
+                      <button type="submit">上传头像</button>
+                  </form>
+              </div>
+          </div>
+        </div>
+
+    </div>
+    {% endblock %}
+
+
+
+
+
+</body>
+</html>

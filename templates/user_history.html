@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+{% extends "base.html" %}
+{% block title %}用户话题记录{% endblock %}
+
+</head>
+
+<body>
+
+    {% block main %}
+    <div id="main">
+        {% block sidebar %} {{ super() }} {% endblock %}
+        <div id="content">
+            <div class="panel">
+                <div class="header">
+                    <ul class="breadcrumb">
+                        <li><a href={{ url_for("coolwater_topic.index") }}>主页</a><span class="divider">/</span></li>
+                    </ul>
+                </div>
+                <div class="inner userinfo">
+                    <div class="user_big_avatar">
+                        <img src="{{ u.image }}" class="user_avatar" title="{{ u.username }}">
+                    </div>
+                    <a class="dark">{{ u.username }}</a>
+
+                    <div class="user_profile">
+                        <ul class="unstyled">
+                            <span class="big">25</span> 积分
+
+
+
+                            <li>
+                                <!-- <i class="fa fa-lg fa-fw fa-map-marker"></i>
+                                <span class="dark">福建福州</span> -->
+                            </li>
+
+
+                            <li>
+                                <!-- <i class="fa fa-lg fa-fw fa-github"></i>
+                                <a class="dark" href="https://github.com/MeetTheBest" target="_blank">
+                                    @MeetTheBest
+                                </a> -->
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- <p class="col_fade">注册时间 3 个月前</p> -->
+                </div>
+            </div>
+
+            <div class="panel">
+                <div class="header">
+                    <span class="col_fade">最近创建的话题</span>
+                </div>
+                {% for t in topics %}
+                <div class="cell">
+
+                    <a class="user_avatar pull-left" href="{{ url_for('coolwater_user.index', username=t.user().username, user_id=t.user().id) }}">
+                        <img src="{{ t.user().image }}" title="{{ t.title }}">
+                    </a>
+
+                    <span class="reply_count pull-left">
+                            <span class="count_of_replies" title="回复数">
+                                {{ t.replies() | count }}
+                            </span>
+                            <span class="count_seperator">/</span>
+                            <span class="count_of_visits" title="点击数">
+                                {{ t.views }}
+                            </span>
+                    </span>
+                    <a class="last_time pull-right" href="/topic/{{ t.id }}">
+                        <img class="user_small_avatar" src="">
+                        <span class="last_active_time" data-created_time="{{ t.created_time }}"></span>
+                    </a>
+                    <div class="topic_title_wrapper">
+                        <a class="topic_title" href="/topic/{{ t.id }}" title="{{ t.title }}">
+                            {{ t.title }}
+                        </a>
+                    </div>
+                </div>
+                {% endfor %}
+                <div class="cell more">
+                    <a class="dark" href="">查看更多»</a>
+                </div>
+
+            </div>
+
+            <div class="panel">
+                <div class="header">
+                    <span class="col_fade">最近参与的话题</span>
+                </div>
+                {% for t in topics_reply %}
+                <div class="cell">
+
+                    <a class="user_avatar pull-left" href="{{ url_for('coolwater_user.index', username=t.user().username, user_id=t.user().id) }}">
+                        <img src="{{ t.user().image }}" title="{{ t.title }}">
+                    </a>
+
+                    <span class="reply_count pull-left">
+                        <span class="count_of_replies" title="回复数">
+                            {{ t.replies() | count }}
+                        </span>
+                        <span class="count_seperator">/</span>
+                        <span class="count_of_visits" title="点击数">
+                            {{ t.views }}
+                        </span>
+                    </span>
+                    <a class="last_time pull-right" href="/topic/{{ t.id }}">
+                        <img class="user_small_avatar" src="{{ t.user().image }}">
+                        <span class="last_active_time" data-created_time="{{ t.created_time }}"></span>
+                    </a>
+                    <div class="topic_title_wrapper">
+                        <a class="topic_title" href="/topic/{{ t.id }}" title="{{ t.title }}">
+                            {{ t.title }}
+                        </a>
+                    </div>
+                </div>
+                {% endfor %}
+                <div class="cell more">
+                    <a class="dark" href="">查看更多»</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="backtotop" style="display: none; top: 343px; right: 0px;">回到顶部</div>
+    <div id="sidebar-mask"></div>
+    <script>
+        // google analytics
+        (function(i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r;
+            i[r] = i[r] || function() {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date();
+            a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0];
+            a.async = 1;
+            a.src = g;
+            m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', "https://www.google-analytics.com/analytics.js", 'ga');
+
+        ga('create', 'UA-41753901-5', 'auto');
+        ga('send', 'pageview');
+    </script>
+    <script>
+        var e = function (sel) {
+            return document.querySelector(sel)
+        }
+
+        var es = function (sel) {
+            return document.querySelectorAll(sel)
+        }
+
+        var registerTimer = function () {
+            setInterval(function () {
+                var times = es('.last_active_time')
+                    for (var i = 0; i < times.length; i++) {
+                        var t = times[i]
+                        var time = Number(t.dataset.created_time)
+                        var now = Math.floor(new Date() / 1000)
+                        var delta = now - time
+                        var s = `${delta} 秒前`
+                        t.innerText = s
+                    }
+            }, 1000)
+        }
+
+        var __main = function () {
+            registerTimer()
+        }
+
+        __main()
+    </script>
+    <div style="display:none;">
+        <script src="//s95.cnzz.com/z_stat.php?id=1254020586&amp;web_id=1254020586" language="JavaScript"></script>
+        <script src="https://c.cnzz.com/core.php?web_id=1254020586&amp;t=z" charset="utf-8" type="text/javascript"></script><a href="http://www.cnzz.com/stat/website.php?web_id=1254020586" target="_blank" title="站长统计">站长统计</a>
+    </div>
+    {% endblock %}
+
+
+</body>
+
+</html>
