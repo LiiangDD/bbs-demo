@@ -4,8 +4,9 @@ secret.py
 config.py
 database_secret.conf
 *.log.txt
-
-
+*.box
+*.json
+Vagrantfile
 
 
 # Byte-compiled / optimized / DLL files
