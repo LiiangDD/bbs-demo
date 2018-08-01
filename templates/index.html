@@ -18,10 +18,10 @@
                 <a href="https://github.com/LiiangDD/bbs-demo">Source Code/源代码</a>
             </p>
             <p>
+                <a href="{{ url_for("coolwater_topic.index") }}" class="pure-button pure-button-primary">直接访问</a>
                 {% if base_inject_user.is_guest() %}
-                <a href="{{ url_for("coolwater_topic.index") }}" class="pure-button pure-button-primary">访客登录</a>
-                {% endif %}
                 <a href="{{ url_for("index.login_view") }}" class="pure-button pure-button-primary">用户注册/登录</a>
+                {% endif %}
             </p>
         </div>
     </div>
