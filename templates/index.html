@@ -15,10 +15,13 @@
         <div class="splash">
             <h1 class="splash-head">coolwater未来</h1>
             <p class="splash-subhead">
-                Coming Soon!We're working hard to finish the development of this site.
+                <a href="https://github.com/LiiangDD/bbs-demo">Source Code/源代码</a>
             </p>
             <p>
-                <a href="{{ url_for("coolwater_topic.index") }}" class="pure-button pure-button-primary">论坛-demo：Get Started</a>
+                {% if base_inject_user.is_guest() %}
+                <a href="{{ url_for("coolwater_topic.index") }}" class="pure-button pure-button-primary">访客登录</a>
+                {% endif %}
+                <a href="{{ url_for("index.login_view") }}" class="pure-button pure-button-primary">用户注册/登录</a>
             </p>
         </div>
     </div>

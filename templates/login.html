@@ -8,6 +8,21 @@
 
     {% block main %}
     <div id="main">
+                {% block sidebar %}
+        <div id="sidebar">
+          <div class="panel">
+            <div class="header">
+              <span class="col_fade">tips</span>
+            </div>
+            <div class="inner">
+              <ol>
+                <li><tt>1.按蓝色登录按钮登录，用户名密码已预设</tt></li>
+                <li><tt>2.最右上角导航栏可完成用户的登录/登出</tt></li>
+              </ol>
+            </div>
+          </div>
+        </div>
+        {% endblock %}
         <div id="content">
           <div class="panel">
             <div class="header">
@@ -38,13 +53,13 @@
                     <div class="control-group">
                         <label class="control-label">用户名</label>
                         <div class="controls">
-                            <input type="text" class="input-xlarge" name="username">
+                            <input type="text" class="input-xlarge" name="username" value="test1">
                         </div>
                     </div>
                     <div class="control-group">
                         <label class="control-label">密码</label>
                         <div class="controls">
-                            <input type="password" class="input-xlarge" name="password">
+                            <input type="password" class="input-xlarge" name="password" value="123">
                         </div>
                     </div>
                     <div class="form-actions">
