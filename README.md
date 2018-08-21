@@ -1,8 +1,6 @@
 # bbs-demo
 ![bbs-demo](/guest.gif)
 
-# Forum
-
 [http://coolwater.xyz](http://http://coolwater.xyz)
 
 一个简单的论坛项目。 python + flask + mysql 开发，最后通过 supervisor + gunicorn + nginx 实现服务器部署。
